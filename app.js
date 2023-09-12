@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import Application from "./models/application.js";
 import cors from "cors";
+import { sectors } from "./data/data.js";
 
 import * as dotenv from "dotenv";
 import { sessionMiddleware } from "./middleware/session.js";
@@ -78,6 +79,18 @@ app.patch("/application/:id", sessionMiddleware, async (req, res) => {
     res.status(200).json({
       message: "success",
       response: updatedApplication,
+    });
+  } catch (error) {
+    res.status(404).json({ status: "error", response: error });
+  }
+});
+
+// Get all sectors
+app.get("/sectors", async (req, res) => {
+  try {
+    res.status(200).json({
+      message: "success",
+      response: sectors,
     });
   } catch (error) {
     res.status(404).json({ status: "error", response: error });
